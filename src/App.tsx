@@ -1,46 +1,58 @@
-import React, { useState } from 'react';
-import logo from './logo.svg';
-import './App.scss';
+import React from 'react';
+
+import style from './App.module.scss';
+import {
+    AppBar,
+    Divider,
+    Drawer,
+    List,
+    ListItem,
+    ListItemText,
+    Toolbar,
+    Typography,
+} from '@mui/material';
+
+const drawerWidth = 240;
 
 function App() {
-    const [count, setCount] = useState(0);
-
     return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>Hello Vite + React!</p>
-                <p>
-                    <button
-                        type="button"
-                        onClick={() => setCount((count) => count + 1)}
+        <div className={style.app}>
+            <AppBar
+                position="fixed"
+                sx={{
+                    width: `calc(100% - ${drawerWidth}px)`,
+                    ml: `${drawerWidth}px`,
+                }}
+            >
+                <Toolbar>
+                    <Typography
+                        variant="h6"
+                        component="div"
+                        sx={{ flexGrow: 1 }}
                     >
-                        count is: {count}
-                    </button>
-                </p>
-                <p>
-                    Edit <code>App.tsx</code> and save to test HMR updates.
-                </p>
-                <p>
-                    <a
-                        className="App-link"
-                        href="https://reactjs.org"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Learn React
-                    </a>
-                    {' | '}
-                    <a
-                        className="App-link"
-                        href="https://vitejs.dev/guide/features.html"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Vite Docs
-                    </a>
-                </p>
-            </header>
+                        Magic Notes
+                    </Typography>
+                </Toolbar>
+            </AppBar>
+            <Drawer
+                variant="permanent"
+                anchor="left"
+                sx={{
+                    width: drawerWidth,
+                    flexShrink: 0,
+                    '& .MuiDrawer-paper': {
+                        width: drawerWidth,
+                        boxSizing: 'border-box',
+                    },
+                }}
+            >
+                <Divider />
+                <List>
+                    <ListItem button>
+                        <ListItemText primary={'前端常用站点'} />
+                    </ListItem>
+                </List>
+            </Drawer>
         </div>
     );
 }
