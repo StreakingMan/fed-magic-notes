@@ -1,8 +1,9 @@
 import React from 'react';
-
-import style from './App.module.scss';
+import { Routes, Route, Outlet, Link } from 'react-router-dom';
+import './App.module.scss';
 import {
     AppBar,
+    Box,
     Divider,
     Drawer,
     List,
@@ -11,29 +12,14 @@ import {
     Toolbar,
     Typography,
 } from '@mui/material';
+import Home from './Home';
+import FedSitesCollect from './FedSitesCollect';
 
 const drawerWidth = 240;
 
-function App() {
+function Layout() {
     return (
-        <div className={style.app}>
-            <AppBar
-                position="fixed"
-                sx={{
-                    width: `calc(100% - ${drawerWidth}px)`,
-                    ml: `${drawerWidth}px`,
-                }}
-            >
-                <Toolbar>
-                    <Typography
-                        variant="h6"
-                        component="div"
-                        sx={{ flexGrow: 1 }}
-                    >
-                        Magic Notes
-                    </Typography>
-                </Toolbar>
-            </AppBar>
+        <Box sx={{ display: 'flex' }}>
             <Drawer
                 variant="permanent"
                 anchor="left"
@@ -48,12 +34,46 @@ function App() {
             >
                 <Divider />
                 <List>
-                    <ListItem button>
-                        <ListItemText primary={'前端常用站点'} />
-                    </ListItem>
+                    <Link to={'/'}>
+                        <ListItem button>
+                            <ListItemText primary={'首页'} />
+                        </ListItem>
+                    </Link>
+                    <Link to={'/fedSitesCollect'}>
+                        <ListItem href={'/fedSitesCollect'} button>
+                            <ListItemText primary={'前端常用站点'} />
+                        </ListItem>
+                    </Link>
                 </List>
             </Drawer>
-        </div>
+            <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+                <AppBar position="sticky">
+                    <Toolbar>
+                        <Typography
+                            variant="h6"
+                            component="div"
+                            sx={{ flexGrow: 1 }}
+                        >
+                            Magic Notes
+                        </Typography>
+                    </Toolbar>
+                </AppBar>
+                <Box sx={{ flexGrow: 1, padding: 4 }}>
+                    <Outlet />
+                </Box>
+            </Box>
+        </Box>
+    );
+}
+
+function App() {
+    return (
+        <Routes>
+            <Route path={'/'} element={<Layout />}>
+                <Route index element={<Home />} />
+                <Route path={'fedSitesCollect'} element={<FedSitesCollect />} />
+            </Route>
+        </Routes>
     );
 }
 
