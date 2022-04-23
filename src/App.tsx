@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import Home from './Home';
 import FedSitesCollect from './FedSitesCollect';
+import FedMindMap from './FedMindMap';
 
 const drawerWidth = 240;
 
@@ -44,6 +45,11 @@ function Layout() {
                             <ListItemText primary={'前端常用站点'} />
                         </ListItem>
                     </Link>
+                    <Link to={'/fedMindMap'}>
+                        <ListItem href={'/fedMindMap'} button>
+                            <ListItemText primary={'前端知识框架'} />
+                        </ListItem>
+                    </Link>
                 </List>
             </Drawer>
             <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
@@ -72,6 +78,7 @@ function App() {
             <Route path={'/'} element={<Layout />}>
                 <Route index element={<Home />} />
                 <Route path={'fedSitesCollect'} element={<FedSitesCollect />} />
+                <Route path={'fedMindMap'} element={<FedMindMap />} />
             </Route>
         </Routes>
     );
